@@ -2,10 +2,39 @@ let startPauseButton = document.querySelector("#start-pause-button");
 let splitButton = document.querySelector("#split-button");
 let resetButton = document.querySelector("#reset-button");
 
+let milliSeconds = 0;
+let seconds = 0;
+let minutes = 0;
+let hours = 0;
+
+let trueMilliSeconds = 0;
+let trueSeconds = 0;
+let trueMinutes = 0;
+let trueHours = 0;
+
+function incrementMilliSeconds() {
+    trueMilliSeconds += 1;
+    milliSeconds = trueMilliSeconds % 1000;
+
+    trueSeconds = Math.floor(trueMilliSeconds/1000);
+    seconds = trueSeconds % 60;
+
+    trueMinutes = Math.floor(trueSeconds/60);
+    minutes = Math.floor(trueSeconds/60) % 60;
+
+    trueHours = Math.floor(trueMinutes/60);
+    hours = trueHours % 99;
+
+
+
+    console.log(hours, minutes, seconds, milliSeconds)
+}
 
 
 
 startPauseButton.addEventListener("click", function(e) {
+
+    setInterval(incrementMilliSeconds, 1);
 
     //^^when Start button is clicked
     if (e.target.innerText === "Start") {
