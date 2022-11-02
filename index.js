@@ -1,6 +1,9 @@
 let startPauseButton = document.querySelector("#start-pause-button");
 let splitButton = document.querySelector("#split-button");
 let resetButton = document.querySelector("#reset-button");
+let time = document.querySelector(".time");
+let timeEndElement = document.querySelector(".time-end");
+
 
 let milliSeconds = 0;
 let seconds = 0;
@@ -12,9 +15,13 @@ let trueSeconds = 0;
 let trueMinutes = 0;
 let trueHours = 0;
 
-function incrementMilliSeconds() {
-    trueMilliSeconds += 1;
-    milliSeconds = trueMilliSeconds % 1000;
+let timeEnd = 0;
+let trueTimeEnd = 0;
+
+
+function incrementTime() {
+    trueMilliSeconds += 100;
+    milliSeconds = trueMilliSeconds % 1000 / 100;
 
     trueSeconds = Math.floor(trueMilliSeconds/1000);
     seconds = trueSeconds % 60;
@@ -26,15 +33,24 @@ function incrementMilliSeconds() {
     hours = trueHours % 99;
 
 
+    time.innerText = `${hours<10?"0"+hours:hours}:${minutes<10?"0"+minutes:minutes}:${seconds<10?"0"+seconds:seconds}.${milliSeconds}`
+    // console.log(hours, minutes, seconds, milliSeconds)
+}
 
-    console.log(hours, minutes, seconds, milliSeconds)
+function incrementTimeEnd() {
+    trueTimeEnd += 1;
+    timeEnd = trueTimeEnd % 100;
+
+    timeEndElement.innerText = `${timeEnd<10?"0"+timeEnd:timeEnd}`
 }
 
 
 
 startPauseButton.addEventListener("click", function(e) {
 
-    setInterval(incrementMilliSeconds, 1);
+    //Click event on start button will start stopwatch from the current time.
+    setInterval(incrementTime, 100);
+    setInterval(incrementTimeEnd, 1);
 
     //^^when Start button is clicked
     if (e.target.innerText === "Start") {
