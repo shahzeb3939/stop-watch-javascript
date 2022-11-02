@@ -4,6 +4,9 @@
 } */
 
 :root {
+
+    --font-scale: 1;
+
     --start-button-color: hsl(176, 75%, 37%);
     --pause-button-color: hsl(350, 95%, 69%);
     --split-button-color: hsl(35, 89%, 55%);
@@ -40,7 +43,7 @@ body {
 }
 
 .content {
-    gap: 1em;
+    gap: calc(var(--font-scale)*1em);
 }
 
 .content > * {
@@ -56,16 +59,16 @@ body {
 }
 
 .time {
-    font-size: 10rem;
+    font-size: calc(var(--font-scale)*10rem);
 }
 
 .time-end {
-    font-size: 4rem;
+    font-size: calc(var(--font-scale)*4rem);
 }
 
 
 .split-time {
-    font-size: 1.25rem;
+    font-size: calc(var(--font-scale)*1.25rem);
     color: #F29D37;
     text-transform: uppercase;
 }
@@ -75,10 +78,10 @@ body {
 }
 
 .button {
-    font-size: 1.25rem;
+    font-size: calc(var(--font-scale)*1.25rem);
     border-radius: 100%;
-    width: 6rem;
-    height: 6rem;
+    width: calc(var(--font-scale)*6rem);
+    height: calc(var(--font-scale)*6rem);
     border-style: none;
     color: white;
     font-weight: 400;
@@ -124,4 +127,37 @@ body {
 
 .blue-color {
     background-color: blueviolet;
+}
+
+
+@media (max-width: 60rem) {
+    :root {
+        --font-scale: .8;
+    }
+}
+
+@media (max-width: 50rem) {
+    :root {
+        --font-scale: .6;
+    }
+}
+
+@media (max-width: 40rem) {
+    :root {
+        --font-scale: .47;
+    }
+}
+
+
+@media (max-width: 30rem) {
+    :root {
+        --font-scale: .42;
+    }
+}
+
+
+@media (max-width: 25rem) {
+    :root {
+        --font-scale: .35;
+    }
 }
