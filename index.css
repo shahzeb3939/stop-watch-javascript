@@ -121,3 +121,7 @@ body {
 .reset-button {
     background-color: var(--reset-button-color);
 }
+
+.blue-color {
+    background-color: blueviolet;
+}

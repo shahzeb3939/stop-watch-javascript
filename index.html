@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<script type="text/javascript" src="./index.js"></script>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,11 +16,12 @@
             </div>
             <p class="split-time">Split Time</p>
             <div class="button-container flex">
-                <button type="button" class="button start-button">Start</button>
-                <button type="button" class="button disabled-button">Split</button>
-                <button type="button" class="button disabled-button">Reset</button>
+                <button type="button" class="button start-button" id="start-pause-button">Start</button>
+                <button type="button" class="button disabled-button" id="split-button" disabled>Split</button>
+                <button type="button" class="button disabled-button" id="reset-button" disabled>Reset</button>
             </div>
         </div>
     </div>    
 </body>
+<script type="text/javascript" src="./index.js"></script>
 </html>
