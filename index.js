@@ -3,7 +3,8 @@ let splitButton = document.querySelector("#split-button");
 let resetButton = document.querySelector("#reset-button");
 let time = document.querySelector(".time");
 let timeEndElement = document.querySelector(".time-end");
-
+let table = document.querySelector("#table");
+let tableSeparator = document.querySelector(".table-separator")
 
 let milliSeconds = 0;
 let seconds = 0;
@@ -17,6 +18,11 @@ let trueHours = 0;
 
 let timeEnd = 0;
 let trueTimeEnd = 0;
+
+let incrementTimeInterval;
+let incrementTimeEndInterval;
+
+let tableCount = 1;
 
 
 function incrementTime() {
@@ -48,12 +54,14 @@ function incrementTimeEnd() {
 
 startPauseButton.addEventListener("click", function(e) {
 
-    //Click event on start button will start stopwatch from the current time.
-    setInterval(incrementTime, 100);
-    setInterval(incrementTimeEnd, 1);
+    
 
     //^^when Start button is clicked
     if (e.target.innerText === "Start") {
+
+        //Click event on start button will start stopwatch from the current time.
+        incrementTimeInterval =setInterval(incrementTime, 100);
+        incrementTimeEndInterval = setInterval(incrementTimeEnd, 1);
 
         //Start button will be transformed to pause button
         e.target.classList.remove("start-button")
@@ -75,6 +83,28 @@ startPauseButton.addEventListener("click", function(e) {
     //^^when Pause button is clicked
     else {
 
+        //Click event on pause button will pause the stopwatch.
+        clearInterval(incrementTimeInterval)
+        clearInterval(incrementTimeEndInterval)
+
+        //This event add an entery in the log table with pause event and with the time of event triggred.
+        let row = table.insertRow()
+
+        let indexCell = row.insertCell(0);
+        let timeCell = row.insertCell(1);
+        let stateCell = row.insertCell(2);
+
+        indexCell.classList.add("row-index")
+        timeCell.classList.add("row-time")
+        stateCell.classList.add("row-state")
+
+        indexCell.innerText = "#"+tableCount;
+        tableCount++;
+        timeCell.innerText = `${hours<10?"0"+hours:hours}:${minutes<10?"0"+minutes:minutes}:${seconds<10?"0"+seconds:seconds}.${milliSeconds}${timeEnd<10?"0"+timeEnd:timeEnd}`
+        stateCell.innerText = "Pause"
+
+
+
         //Pause button will be transformed back to start button.
         e.target.innerText = "Start"
         e.target.classList.add("start-button")
@@ -89,6 +119,9 @@ startPauseButton.addEventListener("click", function(e) {
         splitButton.classList.add("disabled-button")
         splitButton.classList.remove("split-button")
         
+        if (table.rows.length != 0) {
+            tableSeparator.classList.remove("hide");
+        }
 
     }
 }) 

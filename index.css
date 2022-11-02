@@ -129,6 +129,14 @@ body {
     background-color: blueviolet;
 }
 
+.table-separator { 
+    width: 100%; 
+}
+
+.hide {
+    display: none;
+}
+
 
 @media (max-width: 60rem) {
     :root {
