@@ -34,9 +34,22 @@ body {
     margin-block: 0px;
 }
 
+.time-container {
+    align-items: baseline;
+}
+
+.time-container > p {
+    margin: 0px;
+}
+
 .time {
     font-size: 10rem;
 }
+
+.time-end {
+    font-size: 4rem;
+}
+
 
 .split-time {
     font-size: 1.25rem;
