@@ -3,6 +3,19 @@
     border: 1px solid green;
 } */
 
+:root {
+    --start-button-color: hsl(176, 75%, 37%);
+    --pause-button-color: hsl(350, 95%, 69%);
+    --split-button-color: hsl(35, 89%, 55%);
+    --reset-button-color: hsl(211, 60%, 54%);
+
+    --start-button-color-hover: hsl(176, 75%, 27%);
+    --pause-button-color-hover: hsl(350, 95%, 59%);
+    --split-button-color-hover: hsl(35, 89%, 45%);
+    --reset-button-color-hover: hsl(211, 60%, 44%);
+
+}
+
 .flex {
     display: flex;
 }
@@ -71,24 +84,40 @@ body {
     font-weight: 400;
 }
 
-.button-disabled {
+.start-button:hover {
+    background-color: var(--start-button-color-hover);
+}
+
+.pause-button:hover {
+    background-color: var(--pause-button-color-hover);
+}
+
+.split-button:hover {
+    background-color: var(--split-button-color-hover);
+}
+
+.reset-button:hover {
+    background-color: var(--reset-button-color-hover);
+}
+
+.disabled-button {
     background-color: white;
     color: grey;
     border: 1px solid grey;
 }
 
 .start-button {
-    background-color: #18A69D;
+    background-color: var(--start-button-color);
 }
 
 .pause-button {
-    background-color: #FB657F;
+    background-color: var(--pause-button-color);
 }
 
 .split-button {
-    background-color: #F29E26;
+    background-color: var(--split-button-color);
 }
 
 .reset-button {
-    background-color: #4487D0;
+    background-color: var(--reset-button-color);
 }
