@@ -39,7 +39,7 @@ body {
 .container {
     justify-content: center;
     align-items: center;
-    padding: 2em;
+    padding: 3em;
 }
 
 .content {
@@ -52,6 +52,7 @@ body {
 
 .time-container {
     align-items: baseline;
+    gap: calc(var(--font-scale)*1em);
 }
 
 .time-container > p {
@@ -67,14 +68,14 @@ body {
 }
 
 
-.split-time {
+.split-time-display {
     font-size: calc(var(--font-scale)*1.25rem);
     color: #F29D37;
     text-transform: uppercase;
 }
 
 .button-container {
-    gap: 1em;
+    gap: calc(var(--font-scale)*1em);
 }
 
 .button {
@@ -135,6 +136,19 @@ body {
 
 .hide {
     display: none;
+}
+
+.table-body > tr {
+    /* font-size:  */
+    line-height: calc(var(--font-scale)*.75em + 1em) ;
+}
+
+.pause-time {
+    color: var(--pause-button-color);
+}
+
+.split-time {
+    color: var(--split-button-color);
 }
 
 

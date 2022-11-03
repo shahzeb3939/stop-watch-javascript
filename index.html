@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Stopwatch - Shahzeb</title>
     <link rel="stylesheet" type="text/css" href="./index.css">
 </head>
 <body>
@@ -14,15 +14,15 @@
                 <p class="time">00:00:00.0</p>
                 <p class="time-end">00</p> 
             </div>
-            <p class="split-time">Split Time</p>
+            <!-- <p class="split-time-display">Split Time</p> -->
             <div class="button-container flex">
                 <button type="button" class="button start-button" id="start-pause-button">Start</button>
-                <button type="button" class="button disabled-button" id="split-button" disabled>Split</button>
+                <button type="button" class="button disabled-button" id="split-button" disabled>Lap</button>
                 <button type="button" class="button disabled-button" id="reset-button" disabled>Reset</button>
             </div>
             <hr class="table-separator hide">
             <table class="table" id="table">
-                <tbody class="table-body"></tbody>
+                <tbody class="table-body" id="table-body"></tbody>
             </table>
         </div>
     </div>    

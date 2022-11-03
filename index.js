@@ -5,6 +5,7 @@ let time = document.querySelector(".time");
 let timeEndElement = document.querySelector(".time-end");
 let table = document.querySelector("#table");
 let tableSeparator = document.querySelector(".table-separator")
+let tableBody = document.querySelector("#table-body")
 
 let milliSeconds = 0;
 let seconds = 0;
@@ -95,7 +96,7 @@ startPauseButton.addEventListener("click", function(e) {
         let stateCell = row.insertCell(2);
 
         indexCell.classList.add("row-index")
-        timeCell.classList.add("row-time")
+        timeCell.classList.add("row-time", "pause-time")
         stateCell.classList.add("row-state")
 
         indexCell.innerText = "#"+tableCount;
@@ -124,7 +125,33 @@ startPauseButton.addEventListener("click", function(e) {
         }
 
     }
-}) 
+})
+
+
+splitButton.addEventListener("click", function() {
+
+    //This event add an entery in the log table with split event and with the time of event triggred.
+    let row = table.insertRow()
+
+    let indexCell = row.insertCell(0);
+    let timeCell = row.insertCell(1);
+    let stateCell = row.insertCell(2);
+
+    indexCell.classList.add("row-index")
+    timeCell.classList.add("row-time", "split-time")
+    stateCell.classList.add("row-state")
+
+    indexCell.innerText = "#"+tableCount;
+    tableCount++;
+    timeCell.innerText = `${hours<10?"0"+hours:hours}:${minutes<10?"0"+minutes:minutes}:${seconds<10?"0"+seconds:seconds}.${milliSeconds}${timeEnd<10?"0"+timeEnd:timeEnd}`
+    stateCell.innerText = "Lap"
+
+    if (table.rows.length != 0) {
+        tableSeparator.classList.remove("hide");
+    }
+
+})
+
 
 resetButton.addEventListener("click", function(e) {
 
@@ -132,5 +159,33 @@ resetButton.addEventListener("click", function(e) {
     resetButton.setAttribute("disabled", "")
     resetButton.classList.add("disabled-button")
     resetButton.classList.remove("reset-button")
-    
+
+    //User click on reset button to bring stopwatch to initial state.
+    milliSeconds = 0;
+    seconds = 0;
+    minutes = 0;
+    hours = 0;
+
+    trueMilliSeconds = 0;
+    trueSeconds = 0;
+    trueMinutes = 0;
+    trueHours = 0;
+
+    timeEnd = 0;
+    trueTimeEnd = 0;
+
+    // incrementTimeInterval;
+    // incrementTimeEndInterval;
+
+    tableCount = 1;
+
+    time.innerText = "00:00:00.0"
+    timeEndElement.innerText = "00"
+
+    tableBody.innerHTML = ""
+
+    if (table.rows.length == 0) {
+        tableSeparator.classList.add("hide");
+    }
+
 })
