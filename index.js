@@ -6,6 +6,52 @@ let timeEndElement = document.querySelector(".time-end");
 let table = document.querySelector("#table");
 let tableSeparator = document.querySelector(".table-separator")
 let tableBody = document.querySelector("#table-body")
+let githubLoginButton = document.querySelector(".github-login-button")
+
+
+// document.addEventListener("DOMContentLoaded", function() {
+//     console.log(window.location.href)
+// });
+
+
+// setInterval(function() {
+//     console.log(document.location.href)
+// }, 1000)
+
+githubLoginButton.addEventListener("click", function(e) {
+    let params = (new URL(window.location)).searchParams;
+    let code = params.get("code");
+    // console.log(code)
+    if (code === null) {
+        window.open("https://github.com/login/oauth/authorize?client_id=b76227f559e4ff3e664b", "_self")
+    }     
+
+})
+
+
+window.addEventListener("load", function() {
+    let params = (new URL(window.location)).searchParams;
+    let code = params.get("code");
+    if (code !== null) {
+        // this.sessionStorage.setItem("code", code)
+        this.localStorage.setItem("code", code)
+
+        makeAccessTokenRequest();
+
+    }   
+})
+
+window.addEventListener("load", function(e) {
+    console.log("page is loaded");
+    console.log(document.location.href)
+    if (this.window.location.href !== "http://127.0.0.1:5500/") {
+        githubLoginButton.classList.add("hide")
+    } else if ((this.window.location.href === "http://127.0.0.1:5500/") && (this.localStorage.getItem("code") !== null)) {
+        githubLoginButton.classList.add("hide")
+    } else {
+        githubLoginButton.classList.remove("hide")
+    }
+})
 
 let milliSeconds = 0;
 let seconds = 0;
@@ -189,3 +235,47 @@ resetButton.addEventListener("click", function(e) {
     }
 
 })
+
+
+function makeAccessTokenRequest() {
+    // let h = new Headers();
+    // h.append("Accept", "application/json");
+
+    // var request = new Request({
+    //     url: 'https://github.com/login/oauth/access_token?'+ new URLSearchParams({
+    //         client_id: 'b76227f559e4ff3e664b',
+    //         client_secret: "ae245b62e0cdb003c52f3ae50cec0e361628f803",
+    //         code: window.localStorage.getItem("code"),
+    //     }),
+    //     method: 'POST',
+    //     headers: h
+    //   });
+
+
+    const params = {
+        client_id: 'b76227f559e4ff3e664b',
+        client_secret: "ae245b62e0cdb003c52f3ae50cec0e361628f803",
+        code: window.localStorage.getItem("code"),
+    };
+
+    const options = {
+        method: 'POST',
+        // body: JSON.stringify( params ),
+        headers: {
+            "Accept": "application/json"
+        },
+        mode: "cors"
+    };
+
+
+    fetch(`https://github.com/login/oauth/access_token?client_id=${params.client_id}&client_secret=${params.client_secret}&code=${params.code}`, options )
+        .then(res => res.json())
+        .then(data => console.log(data))
+    
+      
+      
+
+    // fetch('https://github.com/login/oauth/access_token')
+    //   .then(res => res.json())
+    //   .then(data => console.log(data))
+}
