@@ -29,7 +29,16 @@ githubLoginButton.addEventListener("click", function(e) {
 })
 
 
-window.addEventListener("load", function() {
+// window.addEventListener("load", function() {
+      
+// })
+
+window.addEventListener("load", function(e) {
+
+    console.log("page is loaded");
+    console.log(document.location.href)
+
+
     let params = (new URL(window.location)).searchParams;
     let code = params.get("code");
     if (code !== null) {
@@ -38,12 +47,9 @@ window.addEventListener("load", function() {
 
         makeAccessTokenRequest();
 
-    }   
-})
+    } 
 
-window.addEventListener("load", function(e) {
-    console.log("page is loaded");
-    console.log(document.location.href)
+    
     if (this.window.location.href !== "http://127.0.0.1:5500/") {
         githubLoginButton.classList.add("hide")
     } else if ((this.window.location.href === "http://127.0.0.1:5500/") && (this.localStorage.getItem("code") !== null)) {
@@ -237,19 +243,7 @@ resetButton.addEventListener("click", function(e) {
 })
 
 
-function makeAccessTokenRequest() {
-    // let h = new Headers();
-    // h.append("Accept", "application/json");
-
-    // var request = new Request({
-    //     url: 'https://github.com/login/oauth/access_token?'+ new URLSearchParams({
-    //         client_id: 'b76227f559e4ff3e664b',
-    //         client_secret: "ae245b62e0cdb003c52f3ae50cec0e361628f803",
-    //         code: window.localStorage.getItem("code"),
-    //     }),
-    //     method: 'POST',
-    //     headers: h
-    //   });
+async function makeAccessTokenRequest() {
 
 
     const params = {
@@ -260,22 +254,68 @@ function makeAccessTokenRequest() {
 
     const options = {
         method: 'POST',
-        // body: JSON.stringify( params ),
-        headers: {
-            "Accept": "application/json"
-        },
-        mode: "cors"
+        // headers: {
+            // "Accept": "application/json",
+            // "Accept": "application/json",
+            // "Accept": "*/*",
+            // "Content-Length": "0",
+            // "Accept-Encoding": "gzip, deflate, br",
+            // "Connection": "keep-alive",
+            // "Content-Type": "multipart/form-data"
+        // },
+        // mode: "cors"
     };
 
+    console.log(`https://github.com/login/oauth/access_token?client_id=${params.client_id}&client_secret=${params.client_secret}&code=${params.code}`)
 
-    fetch(`https://github.com/login/oauth/access_token?client_id=${params.client_id}&client_secret=${params.client_secret}&code=${params.code}`, options )
-        .then(res => res.json())
-        .then(data => console.log(data))
+    const response = await fetch(`https://github.com/login/oauth/access_token?client_id=${params.client_id}&client_secret=${params.client_secret}&code=${params.code}`, options );
+
+    const jsonResponse = response.json()
+
+    console.log(jsonResponse)
     
-      
+
+
+
+
+
+
+
+
+    //     .then(res => console.log(typeof(res), Object.keys(res), res, res.type))
+        // .then(fd => {
+        //     let obj = {};
+
+        //     for (const [k, v] of fd.entries()) {
+        //         obj[k] = v;
+        //     }
+
+        //     console.log(obj)
+
+        // })
+
+        
+
       
 
     // fetch('https://github.com/login/oauth/access_token')
     //   .then(res => res.json())
     //   .then(data => console.log(data))
+
+
+    // let xhr = new XMLHttpRequest();
+    // xhr.open("POST", `https://github.com/login/oauth/access_token?client_id=${params.client_id}&client_secret=${params.client_secret}&code=${params.code}`);
+
+    // xhr.onload = function () {
+
+    //     let obj = {};
+
+    //         for (const [k, v] of this.entries()) {
+    //             obj[k] = v;
+    //         }
+
+    //     console.log(obj)
+    //  };
+
+    //  xhr.send();
 }
