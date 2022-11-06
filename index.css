@@ -49,6 +49,18 @@ body {
     padding-inline: 2em;
 }
 
+.github-container {
+    align-items: center;
+}
+
+/* .github-container > * {
+    justify-content: center;
+} */
+
+/* .github-public_repos {
+    justify-content: center;
+} */
+
 .content {
     gap: calc(var(--font-scale)*1em);
 }

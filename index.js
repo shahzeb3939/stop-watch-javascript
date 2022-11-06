@@ -7,6 +7,9 @@ let table = document.querySelector("#table");
 let tableSeparator = document.querySelector(".table-separator")
 let tableBody = document.querySelector("#table-body")
 let githubLoginButton = document.querySelector(".github-login-button")
+let githubUsername = document.querySelector(".github-username")
+let githubPublicRepos = document.querySelector(".github-public_repos")
+
 
 
 // document.addEventListener("DOMContentLoaded", function() {
@@ -33,7 +36,7 @@ githubLoginButton.addEventListener("click", function(e) {
       
 // })
 
-window.addEventListener("load", function(e) {
+window.addEventListener("load", async function(e) {
 
     console.log("page is loaded");
     console.log(document.location.href)
@@ -45,14 +48,16 @@ window.addEventListener("load", function(e) {
         // this.sessionStorage.setItem("code", code)
         this.localStorage.setItem("code", code)
 
-        makeAccessTokenRequest();
+        // makeAccessTokenRequest();
+        await makeNodeRequest()
+    
 
     } 
 
     
-    if (this.window.location.href !== "http://127.0.0.1:5500/") {
+    if (this.window.location.href !== "https://shahzeb3939.github.io/stop-watch-javascript/") {
         githubLoginButton.classList.add("hide")
-    } else if ((this.window.location.href === "http://127.0.0.1:5500/") && (this.localStorage.getItem("code") !== null)) {
+    } else if ((this.window.location.href === "https://shahzeb3939.github.io/stop-watch-javascript/") && (this.localStorage.getItem("code") !== null)) {
         githubLoginButton.classList.add("hide")
     } else {
         githubLoginButton.classList.remove("hide")
@@ -318,4 +323,37 @@ async function makeAccessTokenRequest() {
     //  };
 
     //  xhr.send();
+}
+
+
+async function makeNodeRequest() {
+
+    const params = {
+        code: window.localStorage.getItem("code")
+    };
+
+
+
+    fetch(`https://github-proxy-shahzeb.herokuapp.com/access_token?code=${params.code}`)
+        .then(res => res.json())
+        .then(data => {
+            // console.log("one", typeof(data["access_token"]), data.access_token)
+            // return data["access_token"]
+
+            const options = {
+                headers: {
+                    'Authorization': `Bearer ${data.access_token}`
+                },
+            };
+
+            fetch(`https://api.github.com/user`, options)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data.login)
+                    console.log(data.public_repos)
+
+                    githubUsername.innerText = `Github Username: ${data.login}`
+                    githubPublicRepos.innerText = `Your Public Repositories: ${data.public_repos}`
+                })
+        })
 }
